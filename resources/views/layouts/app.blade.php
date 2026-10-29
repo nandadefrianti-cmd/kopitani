@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -9,10 +8,51 @@
 </head>
 <body>
     <nav>
-        <a href="/">KopiTani</a>
+        <a href="{{ route('home') }}">KopiTani</a>
+
+        @auth
+            @if (Auth::user()->role === 'admin')
+                <a href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
+                <a href="{{ route('admin.products') }}">Verifikasi Produk</a>
+                <a href="{{ route('admin.categories.index') }}">Manajemen Kategori</a>
+                <a href="{{ route('admin.users') }}">Manajemen Pengguna</a>
+            @else
+                <a href="{{ route('dashboard') }}">Dashboard</a>
+            @endif
+
+            @if (Auth::user()->role === 'kedai')
+                <a href="{{ route('products.catalog') }}">Katalog Kopi</a>
+            @endif
+
+            @if (Auth::user()->role === 'petani')
+                <a href="{{ route('products.index') }}">Produk Saya</a>
+                <a href="{{ route('products.create') }}">Tambah Produk</a>
+            @endif
+
+            <form action="{{ route('logout') }}" method="POST"
+                  style="display: inline;">
+                @csrf
+                <button type="submit">Logout</button>
+            </form>
+        @else
+            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('register') }}">Daftar</a>
+        @endauth
     </nav>
 
     <main>
+        @if (session('success'))
+            <div class="success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="error">
+                {{ session('error') }}
+            </div>
+        @endif
+
         @yield('content')
     </main>
 </body>

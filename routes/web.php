@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminCategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,3 +39,44 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
+
+// Produk Kopi dan Katalog
+Route::middleware('auth')->group(function () {
+
+    // Produk milik petani
+    Route::get('/products', [ProductController::class, 'index'])
+        ->name('products.index');
+
+    Route::get('/products/create', [ProductController::class, 'create'])
+        ->name('products.create');
+
+    Route::post('/products', [ProductController::class, 'store'])
+        ->name('products.store');
+
+    // Katalog untuk pemilik kedai
+    Route::get('/catalog', [ProductController::class, 'catalog'])
+        ->name('products.catalog');
+
+    // Dashboard Admin
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
+        ->name('admin.dashboard');    
+    
+    //Admin
+    Route::get('/admin/products', [AdminController::class, 'products'])
+        ->name('admin.products');
+
+    Route::post('/admin/products/{product}/approve', [AdminController::class, 'approveProduct'])
+        ->name('admin.products.approve');
+
+    Route::post('/admin/products/{product}/reject', [AdminController::class, 'rejectProduct'])
+        ->name('admin.products.reject');
+    
+    // Manajemen Kategori
+    Route::resource('/admin/categories', AdminCategoryController::class)
+        ->except(['show'])
+        ->names('admin.categories');
+    
+        // Manajemen Pengguna
+        Route::get('/admin/users', [AdminController::class, 'users'])
+            ->name('admin.users');
+});
