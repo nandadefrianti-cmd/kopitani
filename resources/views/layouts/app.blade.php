@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>@yield('title', 'KopiTani')</title>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
@@ -22,11 +24,13 @@
 
             @if (Auth::user()->role === 'kedai')
                 <a href="{{ route('products.catalog') }}">Katalog Kopi</a>
+                <a href="{{ route('orders.index') }}">Pesanan Saya</a>
             @endif
 
             @if (Auth::user()->role === 'petani')
                 <a href="{{ route('products.index') }}">Produk Saya</a>
                 <a href="{{ route('products.create') }}">Tambah Produk</a>
+                <a href="{{ route('orders.index') }}">Pesanan Masuk</a>
             @endif
 
             <form action="{{ route('logout') }}" method="POST"

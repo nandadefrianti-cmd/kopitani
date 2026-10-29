@@ -7,6 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminCategoryController;
+use App\Http\Controllers\OrderController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,6 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/catalog', [ProductController::class, 'catalog'])
         ->name('products.catalog');
 
+    // Checkout untuk pemilik kedai
+    Route::get('/products/{product}/checkout', [OrderController::class, 'checkout'])
+        ->name('orders.checkout');
+
     // Dashboard Admin
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
         ->name('admin.dashboard');    
@@ -92,5 +98,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])
         ->name('products.destroy');
 
+    // Pemesanan produk
+    Route::post('/products/{product}/order', [OrderController::class, 'store'])
+        ->name('orders.store');
+
+    // Menampilkan daftar pesanan
+    Route::get('/orders', [OrderController::class, 'index'])
+        ->name('orders.index');
+    
+    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])
+        ->name('orders.updateStatus');
 
 });

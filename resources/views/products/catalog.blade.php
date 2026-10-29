@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Katalog Kopi - KopiTani')
@@ -8,7 +9,9 @@
             <div>
                 <span class="eyebrow">KATALOG PETANI LOKAL</span>
                 <h1>Katalog Kopi ☕</h1>
-                <p>Pilih biji kopi berkualitas dari petani lokal untuk kebutuhan kedai kamu.</p>
+                <p>
+                    Pilih biji kopi berkualitas dari petani lokal untuk kebutuhan kedai kamu.
+                </p>
             </div>
         </div>
 
@@ -16,7 +19,9 @@
             <div class="empty-state">
                 <div class="empty-icon">☕</div>
                 <h3>Belum Ada Produk Tersedia</h3>
-                <p>Produk kopi yang tersedia akan muncul di halaman ini setelah disetujui admin.</p>
+                <p>
+                    Produk kopi yang tersedia akan muncul di halaman ini setelah disetujui admin.
+                </p>
             </div>
         @else
             <div class="product-grid">
@@ -78,6 +83,13 @@
                                     Rp{{ number_format($product->wholesale_price, 0, ',', '.') }}/kg
                                 </strong>
                             </div>
+
+                            <a
+                                href="{{ route('orders.checkout', $product) }}"
+                                class="inline-block mt-4 w-full rounded-lg bg-green-700 px-4 py-3 text-center font-semibold text-white hover:bg-green-800"
+                            >
+                                Pesan Sekarang
+                            </a>
                         </div>
                     </article>
                 @endforeach
