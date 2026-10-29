@@ -12,6 +12,7 @@
         @if ($errors->any())
             <div class="error">
                 <p>Periksa kembali data yang kamu masukkan:</p>
+
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -20,7 +21,11 @@
             </div>
         @endif
 
-        <form action="{{ route('products.store') }}" method="POST">
+        <form
+            action="{{ route('products.store') }}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
             @csrf
 
             <label for="name">Nama Produk</label>
@@ -37,6 +42,7 @@
             <label for="category_id">Kategori Produk</label>
             <select id="category_id" name="category_id" required>
                 <option value="">Pilih kategori</option>
+
                 @foreach ($categories as $category)
                     <option
                         value="{{ $category->id }}"
@@ -97,8 +103,21 @@
                 required
             >
 
+            <label for="image">Foto Produk</label>
+            <input
+                id="image"
+                type="file"
+                name="image"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+            <small>Format JPG, PNG, atau WEBP. Maksimal 2 MB.</small>
+
             <button type="submit">Simpan Produk</button>
-            <a class="btn" href="{{ route('products.index') }}">Kembali</a>
+
+            <a class="btn" href="{{ route('products.index') }}">
+                Kembali
+            </a>
         </form>
     </section>
 @endsection

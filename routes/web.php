@@ -76,7 +76,21 @@ Route::middleware('auth')->group(function () {
         ->except(['show'])
         ->names('admin.categories');
     
-        // Manajemen Pengguna
-        Route::get('/admin/users', [AdminController::class, 'users'])
-            ->name('admin.users');
+    // Manajemen Pengguna
+    Route::get('/admin/users', [AdminController::class, 'users'])
+        ->name('admin.users');
+
+    // Menampilkan halaman edit berdasarkan ID produk
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])
+        ->name('products.edit');
+
+    // Menyimpan perubahan data produk yang diedit petani
+    Route::put('/products/{product}', [ProductController::class, 'update'])
+        ->name('products.update');
+
+    // Menghapus produk milik petani
+    Route::delete('/products/{product}', [ProductController::class, 'destroy'])
+        ->name('products.destroy');
+
+
 });

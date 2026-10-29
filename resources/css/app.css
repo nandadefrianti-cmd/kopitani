@@ -221,14 +221,25 @@ textarea {
     box-shadow: 0 12px 28px rgb(36 56 42 / 9%);
 }
 
+
 .product-visual {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 155px;
+    height: 180px;
+    overflow: hidden;
     background: #f0eee2;
 }
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 
 .coffee-icon {
     font-size: 58px;
