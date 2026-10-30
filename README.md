@@ -1,58 +1,225 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# KopiTani
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Marketplace B2B Bahan Baku Kopi Lokal**
 
-## About Laravel
+KopiTani merupakan aplikasi marketplace berbasis web yang menghubungkan petani kopi lokal dengan pemilik kedai kopi. Melalui aplikasi ini, petani dapat menawarkan dan mengelola produk kopi, sedangkan pemilik kedai dapat melihat katalog, melakukan pemesanan, dan memantau status pesanan.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 1. Teknologi yang Digunakan
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Backend:** PHP 8.3 dan Laravel 13
+- **Frontend:** Blade, Tailwind CSS, dan Vite
+- **Database:** MySQL
+- **ORM:** Laravel Eloquent ORM
+- **Development Environment:** Laragon
+- **Version Control:** Git dan GitHub
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 2. Fitur Aplikasi
 
-## Learning Laravel
+### Admin
+- Melihat dashboard admin.
+- Mengelola kategori produk.
+- Melihat daftar pengguna.
+- Meninjau produk yang diajukan petani.
+- Menyetujui atau menolak produk.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Petani
+- Melihat dashboard petani.
+- Menambahkan produk kopi.
+- Melihat daftar produk milik sendiri.
+- Mengubah informasi produk.
+- Menghapus produk milik sendiri.
+- Melihat pesanan yang masuk.
+- Memperbarui status pesanan menjadi dikirim.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Kedai
+- Melihat katalog produk yang telah disetujui admin.
+- Melihat detail produk dan harga.
+- Melakukan checkout dan pemesanan.
+- Melihat daftar pesanan sendiri.
+- Memperbarui status pesanan menjadi dibayar.
+- Menyelesaikan pesanan.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Autentikasi
+- Registrasi pengguna.
+- Login dan logout.
+- Pengelolaan session.
+- Pembatasan akses berdasarkan role pengguna.
 
-## Agentic Development
+## 3. Persyaratan Instalasi
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Pastikan perangkat sudah memiliki:
+
+- PHP minimal 8.3.
+- Composer.
+- Node.js dan npm.
+- MySQL.
+- Laragon atau web server lokal lainnya.
+- Git.
+
+## 4. Cara Instalasi dan Menjalankan Project
+
+### Langkah 1. Clone Repository
+
+Buka terminal, kemudian jalankan:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/nandadefrianti-cmd/kopitani.git
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Masuk ke direktori project:
 
-## Contributing
+```bash
+cd kopitani
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Langkah 2. Install Dependensi
 
-## Code of Conduct
+Install dependensi Laravel:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+composer install
+```
 
-## Security Vulnerabilities
+Install dependensi frontend:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm install
+```
 
-## License
+### Langkah 3. Konfigurasi Environment
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Salin file `.env.example` menjadi `.env`.
+
+Pada Windows Command Prompt:
+
+```bash
+copy .env.example .env
+```
+
+Buka file `.env`, kemudian sesuaikan konfigurasi database:
+
+```env
+APP_NAME=KopiTani
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=kopitani
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Sesuaikan username dan password database dengan konfigurasi MySQL pada perangkat masing-masing.
+
+### Langkah 4. Membuat Database
+
+1. Jalankan Laragon dan aktifkan Apache serta MySQL.
+2. Buka phpMyAdmin atau MySQL client.
+3. Buat database dengan nama `kopitani`.
+4. Pastikan konfigurasi database pada file `.env` sudah sesuai.
+
+### Langkah 5. Generate Application Key
+
+Jalankan perintah:
+
+```bash
+php artisan key:generate
+```
+
+### Langkah 6. Menjalankan Migration
+
+Jalankan migration untuk membuat tabel database:
+
+```bash
+php artisan migrate
+```
+
+### Langkah 7. Membuat Storage Link
+
+Jalankan perintah:
+
+```bash
+php artisan storage:link
+```
+
+### Langkah 8. Menjalankan Frontend
+
+Jalankan proses build frontend:
+
+```bash
+npm run build
+```
+
+### Langkah 9. Menjalankan Aplikasi
+
+Jalankan server Laravel:
+
+```bash
+php artisan serve
+```
+
+Buka aplikasi melalui browser:
+
+```text
+http://localhost:8000
+```
+
+## 5. Informasi Akses Login Pengguna
+
+Gunakan akun demo berikut untuk menguji aplikasi berdasarkan masing-masing role.
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@kopitani.test | KopiTaniAdmin2026! |
+| Petani | petani@kopitest | 0987654321 |
+| Kedai | kedai@test | 1234567890 |
+
+**Catatan:** Akun demo digunakan untuk keperluan pengujian dan demonstrasi aplikasi.
+
+## 6. Struktur Database
+
+KopiTani menggunakan database relasional MySQL dengan tabel utama:
+
+| Tabel | Keterangan |
+|---|---|
+| users | Menyimpan data pengguna dan role |
+| categories | Menyimpan kategori produk |
+| products | Menyimpan data produk kopi |
+| orders | Menyimpan data pesanan |
+| order_items | Menyimpan detail produk dalam pesanan |
+
+Relasi database menggunakan foreign key untuk menjaga konsistensi antar data.
+
+## 7. Keamanan Aplikasi
+
+Beberapa mekanisme keamanan yang diterapkan:
+
+- Validasi input pada sisi server.
+- Password disimpan menggunakan hashing.
+- Proteksi CSRF melalui Laravel.
+- Proteksi query database menggunakan Eloquent ORM.
+- Pembatasan akses berdasarkan role pengguna.
+- Pemeriksaan kepemilikan data sebelum mengubah atau menghapus produk.
+- Pengelolaan session saat login dan logout.
+
+## 8. Repository
+
+Source code aplikasi:
+
+https://github.com/nandadefrianti-cmd/kopitani
+
+## 9. Identitas Project
+
+- **Nama Aplikasi:** KopiTani
+- **Jenis Aplikasi:** Marketplace B2B
+- **Mata Kuliah:** Web Application Development
+- **Universitas:** Universitas Cakrawala
+- **Nama Pengembang:** [Nanda Deprianti]
+- **NIM:** [25110300006]
+
+10. Informasi Deployment
+
+URL aplikasi: [Isi URL aplikasi setelah deployment]
