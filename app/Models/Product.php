@@ -19,6 +19,7 @@ class Product extends Model
         'wholesale_price',
         'image_path',
         'status',
+        'rejection_reason',
     ];
 
     public function farmer(): BelongsTo

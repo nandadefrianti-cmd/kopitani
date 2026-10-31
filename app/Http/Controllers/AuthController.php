@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\KopiTaniNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -10,11 +11,13 @@ use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
+    // Menampilkan halaman registrasi
     public function showRegister()
     {
         return view('auth.register');
     }
 
+    // Memproses registrasi pengguna
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -41,11 +44,46 @@ class AuthController extends Controller
         return redirect('/dashboard')->with('success', 'Registrasi berhasil!');
     }
 
+    // Mengajukan verifikasi akun Petani
+    public function submitVerification()
+    {
+        $user = Auth::user();
+
+        abort_unless($user->role === 'petani', 403);
+
+        if ($user->verification_status === 'verified') {
+            return back()->with('success', 'Akun kamu sudah terverifikasi.');
+        }
+
+        if ($user->verification_status === 'pending') {
+            return back()->with('success', 'Pengajuan verifikasi kamu sedang diproses.');
+        }
+
+        $user->update([
+            'verification_status' => 'pending',
+            'verification_rejection_reason' => null,
+        ]);
+
+        // Mengirim notifikasi kepada seluruh Admin
+        User::where('role', 'admin')->each(function ($admin) use ($user) {
+            $admin->notify(new KopiTaniNotification(
+                'Pengajuan Verifikasi Akun',
+                $user->name . ' mengajukan verifikasi akun Petani.',
+                url('/admin/verifications'),
+                'verification'
+            ));
+        });
+
+        return back()->with('success', 'Pengajuan verifikasi akun berhasil dikirim.');
+    }
+
+    // Menampilkan halaman login
     public function showLogin()
     {
         return view('auth.login');
     }
 
+    // Memproses login
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -65,6 +103,7 @@ class AuthController extends Controller
             ->onlyInput('email');
     }
 
+    // Memproses logout
     public function logout(Request $request)
     {
         Auth::logout();

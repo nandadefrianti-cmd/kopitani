@@ -14,9 +14,21 @@ class Order extends Model
         'farmer_id',
         'total_amount',
         'status',
+        'payment_status',
+        'payment_proof_path',
+        'payment_rejection_reason',
+        'paid_at',
         'delivery_address',
         'notes',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'paid_at' => 'datetime',
+            'total_amount' => 'decimal:2',
+        ];
+    }
 
     public function buyer(): BelongsTo
     {
@@ -31,5 +43,10 @@ class Order extends Model
     public function items(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function histories(): HasMany
+    {
+        return $this->hasMany(OrderHistory::class);
     }
 }

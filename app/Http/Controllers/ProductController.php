@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\User;
+use App\Notifications\KopiTaniNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -49,11 +51,13 @@ class ProductController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
+        // Menyimpan foto produk
         $imagePath = $request->hasFile('image')
             ? $request->file('image')->store('products', 'public')
             : null;
 
-        Product::create([
+        // Membuat produk baru
+        $product = Product::create([
             'farmer_id' => Auth::id(),
             'category_id' => $validated['category_id'],
             'name' => $validated['name'],
@@ -66,6 +70,16 @@ class ProductController extends Controller
             'image_path' => $imagePath,
             'status' => 'pending',
         ]);
+
+        // Notifikasi kepada Admin ketika Petani menambahkan produk
+        User::where('role', 'admin')->each(function ($admin) use ($product) {
+            $admin->notify(new KopiTaniNotification(
+                'Produk Baru Menunggu Verifikasi',
+                Auth::user()->name . ' mengirim produk ' . $product->name . ' untuk diverifikasi.',
+                url('/admin/products'),
+                'product'
+            ));
+        });
 
         return redirect()
             ->route('products.index')
@@ -110,8 +124,10 @@ class ProductController extends Controller
             'wholesale_min_qty' => $validated['wholesale_min_qty'],
             'wholesale_price' => $validated['wholesale_price'],
             'status' => 'pending',
+            'rejection_reason' => null,
         ];
 
+        // Mengganti foto lama jika ada foto baru
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');
 
@@ -123,6 +139,16 @@ class ProductController extends Controller
         }
 
         $product->update($data);
+
+        // Notifikasi kepada Admin ketika produk diperbarui
+        User::where('role', 'admin')->each(function ($admin) use ($product) {
+            $admin->notify(new KopiTaniNotification(
+                'Produk Diperbarui',
+                Auth::user()->name . ' memperbarui produk ' . $product->name . ' dan mengirimkannya kembali untuk diverifikasi.',
+                url('/admin/products'),
+                'product'
+            ));
+        });
 
         return redirect()
             ->route('products.index')
@@ -146,7 +172,7 @@ class ProductController extends Controller
             ->with('success', 'Produk berhasil dihapus.');
     }
 
-    // Menampilkan katalog produk yang disetujui untuk kedai
+    // Menampilkan katalog produk yang disetujui untuk Kedai
     public function catalog()
     {
         abort_unless(Auth::user()->role === 'kedai', 403);

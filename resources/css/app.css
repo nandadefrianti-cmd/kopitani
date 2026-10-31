@@ -855,3 +855,779 @@ tbody tr:last-child td {
         padding: 20px;
     }
 }
+
+/* ========================================
+   KOPITANI LANDING PAGE - LAYOUT FIX
+======================================== */
+
+/* Lepaskan batas lebar main khusus landing page */
+body > main:has(.kt-landing) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Tampilan utama */
+.kt-landing {
+    width: 100%;
+    margin: 0 !important;
+    font-family: 'Instrument Sans', Arial, sans-serif !important;
+    overflow: hidden;
+}
+
+/* Perlebar seluruh container */
+.kt-landing .kt-container {
+    width: min(1320px, calc(100% - 80px));
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Navbar */
+.kt-landing .kt-nav {
+    width: 100%;
+    height: 82px;
+    padding-left: max(40px, calc((100% - 1320px) / 2));
+    padding-right: max(40px, calc((100% - 1320px) / 2));
+}
+
+/* Hero */
+.kt-landing .kt-hero {
+    padding-top: 85px;
+    padding-bottom: 45px;
+}
+
+.kt-landing .kt-hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 65px;
+}
+
+.kt-landing .kt-hero h1 {
+    font-size: clamp(42px, 4.2vw, 62px);
+    line-height: 1.12;
+    letter-spacing: -2px;
+}
+
+/* Gambar hero */
+.kt-landing .kt-photo-grid {
+    grid-template-rows: 220px 165px;
+    gap: 14px;
+}
+
+/* Statistik */
+.kt-landing .kt-stats {
+    margin-top: 55px;
+    padding: 30px 15px;
+}
+
+.kt-landing .kt-stat strong {
+    font-size: 36px;
+}
+
+/* Section */
+.kt-landing .kt-section {
+    padding-top: 90px;
+    padding-bottom: 90px;
+}
+
+/* Kartu keunggulan */
+.kt-landing .kt-benefit-grid {
+    gap: 24px;
+}
+
+.kt-landing .kt-benefit {
+    padding: 30px;
+}
+
+/* Katalog */
+.kt-landing .kt-region-grid {
+    gap: 22px;
+}
+
+/* Cara kerja */
+.kt-landing .kt-steps {
+    gap: 22px;
+}
+
+/* Testimoni */
+.kt-landing .kt-testimonials {
+    gap: 24px;
+}
+
+/* Responsif */
+@media (max-width: 850px) {
+    .kt-landing .kt-container {
+        width: calc(100% - 40px);
+    }
+
+    .kt-landing .kt-nav {
+        padding: 16px 20px;
+    }
+
+    .kt-landing .kt-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+}
+
+@media (max-width: 600px) {
+    .kt-landing .kt-container {
+        width: calc(100% - 32px);
+    }
+
+    .kt-landing .kt-hero {
+        padding-top: 45px;
+    }
+
+    .kt-landing .kt-hero h1 {
+        font-size: 38px;
+    }
+
+    .kt-landing .kt-section {
+        padding-top: 55px;
+        padding-bottom: 55px;
+    }
+}
+
+/* Font modern untuk KopiTani */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+.kt-landing {
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* Header dengan warna hijau tua */
+.kt-landing .kt-nav {
+    background: #28583D !important;
+    color: #FFFFFF !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 16px rgba(26, 54, 37, 0.12);
+}
+
+/* Logo */
+.kt-landing .kt-nav a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Hover menu */
+.kt-landing .kt-nav a:hover {
+    color: #DCE9C9;
+}
+
+/* Tombol daftar */
+.kt-landing .kt-nav a[href*="register"] {
+    background: #FFFFFF;
+    color: #28583D;
+    border-radius: 10px;
+    padding: 12px 20px;
+}
+
+/* Font heading */
+.kt-landing h1,
+.kt-landing h2,
+.kt-landing h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.8px;
+}
+
+/* Heading hero */
+.kt-landing .kt-hero h1 {
+    font-weight: 800;
+    line-height: 1.12;
+}
+
+/* =========================================
+   KOPITANI - VERIFIKASI PRODUK ADMIN
+========================================= */
+
+body > main:has(.kt-verification-page) {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+.kt-verification-page {
+    --kt-green: #315e40;
+    --kt-green-dark: #244a31;
+    --kt-cream: #f8f5ef;
+    --kt-brown: #38251c;
+    --kt-muted: #777d77;
+    --kt-border: #e9e7df;
+
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 36px 40px 60px;
+    color: var(--kt-brown);
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.kt-verification-page *,
+.kt-verification-page *::before,
+.kt-verification-page *::after {
+    box-sizing: border-box;
+}
+
+/* Header halaman */
+
+.kt-verification-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.kt-verification-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    margin-bottom: 14px;
+    border-radius: 30px;
+    background: #eaf1e3;
+    color: var(--kt-green);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.kt-verification-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d39b37;
+}
+
+.kt-verification-heading h1 {
+    margin: 0 0 8px;
+    font-size: clamp(25px, 3vw, 34px);
+    line-height: 1.3;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+.kt-verification-heading p {
+    margin: 0;
+    color: var(--kt-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.kt-verification-count {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--kt-border);
+    border-radius: 12px;
+    background: #fff;
+    white-space: nowrap;
+}
+
+.kt-verification-count span {
+    color: var(--kt-muted);
+    font-size: 12px;
+}
+
+.kt-verification-count strong {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: #edf3e8;
+    color: var(--kt-green);
+    font-size: 15px;
+}
+
+/* Notifikasi */
+
+.kt-verification-alert {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.kt-verification-alert-success {
+    border: 1px solid #c8e3ce;
+    background: #eff8f0;
+    color: #28613b;
+}
+
+.kt-verification-alert-error {
+    border: 1px solid #f1cccc;
+    background: #fff3f2;
+    color: #a32b2b;
+}
+
+/* Daftar produk */
+
+.kt-verification-list {
+    display: grid;
+    gap: 24px;
+}
+
+.kt-verification-card {
+    min-width: 0;
+    padding: 26px;
+    border: 1px solid var(--kt-border);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 5px 24px rgba(48, 38, 24, 0.035);
+    transition: box-shadow 0.2s ease;
+}
+
+.kt-verification-card:hover {
+    box-shadow: 0 10px 30px rgba(48, 38, 24, 0.07);
+}
+
+/* Header setiap produk */
+
+.kt-verification-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--kt-border);
+}
+
+.kt-verification-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border-radius: 30px;
+    background: #fff5df;
+    color: #92651e;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.kt-verification-status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d39b37;
+}
+
+.kt-verification-product-id {
+    color: #92968f;
+    font-size: 12px;
+}
+
+/* Foto dan informasi produk */
+
+.kt-verification-product {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+    gap: 32px;
+    align-items: start;
+}
+
+.kt-verification-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 13px;
+    background: var(--kt-cream);
+}
+
+.kt-verification-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.kt-verification-no-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 220px;
+    color: var(--kt-muted);
+}
+
+.kt-verification-no-image span {
+    font-size: 42px;
+}
+
+.kt-verification-no-image p {
+    font-size: 12px;
+}
+
+/* Detail produk */
+
+.kt-verification-details {
+    min-width: 0;
+}
+
+.kt-verification-title > span {
+    color: var(--kt-green);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.kt-verification-title h2 {
+    margin: 8px 0 7px;
+    font-size: clamp(20px, 2.2vw, 27px);
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    overflow-wrap: anywhere;
+}
+
+.kt-verification-title p {
+    margin: 0;
+    color: var(--kt-muted);
+    font-size: 13px;
+}
+
+.kt-verification-title p strong {
+    color: #484d47;
+    font-weight: 600;
+}
+
+.kt-verification-info {
+    margin-top: 22px;
+    border-top: 1px solid var(--kt-border);
+}
+
+.kt-verification-info-row {
+    display: grid;
+    grid-template-columns: minmax(110px, 0.8fr) minmax(0, 1.2fr);
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--kt-border);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.kt-verification-info-row > span {
+    color: var(--kt-muted);
+}
+
+.kt-verification-info-row strong {
+    color: #302e2a;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.kt-verification-info-row .kt-verification-price {
+    color: var(--kt-green);
+    font-weight: 700;
+}
+
+/* Deskripsi */
+
+.kt-verification-description {
+    margin-top: 20px;
+}
+
+.kt-verification-description > span {
+    color: var(--kt-muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.kt-verification-description p {
+    margin: 7px 0 0;
+    color: #555b55;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+/* Area aksi */
+
+.kt-verification-actions-area {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 24px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--kt-border);
+}
+
+.kt-verification-reject-form {
+    min-width: 0;
+}
+
+.kt-verification-reject-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--kt-brown);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.kt-verification-reject-form label span {
+    color: var(--kt-muted);
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.kt-verification-reject-form textarea {
+    display: block;
+    width: 100%;
+    min-height: 90px;
+    padding: 13px 15px;
+    border: 1px solid #dedfd8;
+    border-radius: 10px;
+    outline: none;
+    resize: vertical;
+    background: #fdfdfb;
+    color: var(--kt-brown);
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.7;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.kt-verification-reject-form textarea::placeholder {
+    color: #a0a39c;
+}
+
+.kt-verification-reject-form textarea:focus {
+    border-color: var(--kt-green);
+    box-shadow: 0 0 0 3px rgba(49, 94, 64, 0.09);
+}
+
+.kt-verification-error {
+    margin: 8px 0 0;
+    color: #b42318;
+    font-size: 12px;
+}
+
+/* Tombol */
+
+.kt-verification-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.kt-verification-button:hover {
+    transform: translateY(-1px);
+}
+
+.kt-verification-button-reject {
+    margin-top: 14px;
+    border: 1px solid #e2c9c5;
+    background: #fff;
+    color: #a34238;
+}
+
+.kt-verification-button-reject:hover {
+    border-color: #b94d41;
+    background: #fff6f4;
+}
+
+.kt-verification-approve-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.kt-verification-button-approve {
+    border: 1px solid var(--kt-green);
+    background: var(--kt-green);
+    color: #fff;
+}
+
+.kt-verification-button-approve:hover {
+    background: var(--kt-green-dark);
+}
+
+/* Tampilan saat tidak ada produk */
+
+.kt-verification-empty {
+    padding: 70px 24px;
+    border: 1px solid var(--kt-border);
+    border-radius: 18px;
+    background: #fff;
+    text-align: center;
+}
+
+.kt-verification-empty-icon {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #eaf1e3;
+    color: var(--kt-green);
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.kt-verification-empty h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+}
+
+.kt-verification-empty p {
+    margin: 0;
+    color: var(--kt-muted);
+    font-size: 13px;
+}
+
+/* Responsif */
+
+@media (max-width: 900px) {
+    .kt-verification-page {
+        padding: 28px 24px 48px;
+    }
+
+    .kt-verification-product {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .kt-verification-image {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+@media (max-width: 600px) {
+    .kt-verification-page {
+        padding: 22px 16px 36px;
+    }
+
+    .kt-verification-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .kt-verification-count {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .kt-verification-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .kt-verification-card-header {
+        align-items: flex-start;
+    }
+
+    .kt-verification-info-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .kt-verification-actions-area {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .kt-verification-approve-form {
+        grid-row: 1;
+    }
+
+    .kt-verification-button {
+        width: 100%;
+    }
+}
+
+/* Penyesuaian ukuran halaman verifikasi */
+
+.kt-verification-page {
+    max-width: 1100px;
+    padding: 32px 28px 48px;
+}
+
+/* Kartu produk */
+
+.kt-verification-card {
+    padding: 28px;
+    border-radius: 16px;
+}
+
+/* Foto dan informasi produk */
+
+.kt-verification-product {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 30px;
+}
+
+.kt-verification-image {
+    aspect-ratio: 4 / 3;
+}
+
+/* Ukuran teks */
+
+.kt-verification-heading h1 {
+    font-size: 30px;
+}
+
+.kt-verification-heading p {
+    font-size: 14px;
+}
+
+.kt-verification-title h2 {
+    font-size: 24px;
+}
+
+.kt-verification-info-row {
+    font-size: 14px;
+    padding: 13px 0;
+}
+
+.kt-verification-description p {
+    font-size: 14px;
+}
+
+/* Form penolakan */
+
+.kt-verification-reject-form textarea {
+    min-height: 100px;
+    font-size: 14px;
+}
+
+/* Tampilan laptop kecil dan tablet */
+
+@media (max-width: 900px) {
+    .kt-verification-page {
+        padding: 28px 24px 40px;
+    }
+
+    .kt-verification-product {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tampilan HP */
+
+@media (max-width: 600px) {
+    .kt-verification-page {
+        padding: 20px 14px 32px;
+    }
+
+    .kt-verification-card {
+        padding: 18px;
+    }
+}
