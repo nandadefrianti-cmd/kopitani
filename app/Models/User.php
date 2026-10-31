@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'name',
     'email',
     'password',
+    'role',
     'verification_status',
     'verification_rejection_reason',
     ])]
