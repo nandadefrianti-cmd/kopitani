@@ -67,10 +67,12 @@
                 type="number"
                 name="price"
                 value="{{ old('price') }}"
+                placeholder="Contoh: 95000"
                 min="1"
-                step="0.01"
+                step="1"
                 required
             >
+            <small>Masukkan nominal penuh. Contoh Rp95.000 ditulis 95000.</small>
 
             <label for="stock">Stok (kg)</label>
             <input

@@ -93,18 +93,36 @@
                         <h3 class="mb-3 font-semibold">Produk</h3>
 
                         @foreach ($order->items as $item)
-                            <div class="mb-3 flex flex-col justify-between gap-1 sm:flex-row">
-                                <div>
+                            <div class="mb-4 flex flex-col gap-3 rounded-xl border border-gray-200 p-3 sm:flex-row sm:items-center">
+
+                                {{-- Gambar produk --}}
+                                <div class="h-24 w-24 shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                                    @if ($item->product && $item->product->image_path)
+                                        <img
+                                            src="{{ asset('storage/' . $item->product->image_path) }}"
+                                            alt="{{ $item->product->name }}"
+                                            class="h-full w-full object-cover"
+                                        >
+                                    @else
+                                        <div class="flex h-full items-center justify-center text-xs text-gray-400">
+                                            Tidak ada gambar
+                                        </div>
+                                    @endif
+                                </div>
+
+                                {{-- Informasi produk --}}
+                                <div class="min-w-0 flex-1">
                                     <p class="font-medium">
                                         {{ $item->product->name ?? 'Produk sudah tidak tersedia' }}
                                     </p>
-                                    <p class="text-sm text-gray-500">
+                                    <p class="mt-1 text-sm text-gray-500">
                                         {{ $item->quantity }} ×
                                         Rp{{ number_format($item->unit_price, 0, ',', '.') }}
                                     </p>
                                 </div>
 
-                                <p class="font-medium">
+                                {{-- Subtotal --}}
+                                <p class="font-semibold sm:text-right">
                                     Rp{{ number_format($item->subtotal, 0, ',', '.') }}
                                 </p>
                             </div>
@@ -161,8 +179,10 @@
                         {{-- Bukti transfer yang sudah diunggah --}}
                         @if ($order->payment_proof_path)
                             <div class="mt-3">
-                                <a href="{{ route('orders.showPaymentProof', $order) }}"
-                                   class="inline-block text-sm font-medium text-blue-700 underline">
+                                <a
+                                    href="{{ route('orders.showPaymentProof', $order) }}"
+                                    class="inline-block text-sm font-medium text-blue-700 underline"
+                                >
                                     Lihat / Unduh Bukti Transfer
                                 </a>
                             </div>
@@ -174,28 +194,34 @@
                             $order->status === 'menunggu_pembayaran' &&
                             in_array($order->payment_status, ['menunggu_pembayaran', 'ditolak'])
                         )
-                            <form action="{{ route('orders.paymentProof', $order) }}"
-                                  method="POST"
-                                  enctype="multipart/form-data"
-                                  class="mt-4 border-t border-gray-200 pt-4">
+                            <form
+                                action="{{ route('orders.paymentProof', $order) }}"
+                                method="POST"
+                                enctype="multipart/form-data"
+                                class="mt-4 border-t border-gray-200 pt-4"
+                            >
                                 @csrf
 
                                 <label class="mb-2 block text-sm font-medium">
                                     {{ $order->payment_status === 'ditolak' ? 'Unggah Ulang Bukti Transfer' : 'Unggah Bukti Transfer' }}
                                 </label>
 
-                                <input type="file"
-                                       name="payment_proof"
-                                       accept=".jpg,.jpeg,.png,.pdf"
-                                       required
-                                       class="block w-full rounded-lg border border-gray-300 bg-white p-2 text-sm">
+                                <input
+                                    type="file"
+                                    name="payment_proof"
+                                    accept=".jpg,.jpeg,.png,.pdf"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white p-2 text-sm"
+                                >
 
                                 <p class="mt-1 text-xs text-gray-500">
                                     Format JPG, JPEG, PNG, atau PDF. Maksimal 2 MB.
                                 </p>
 
-                                <button type="submit"
-                                        class="mt-3 rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800">
+                                <button
+                                    type="submit"
+                                    class="mt-3 rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800"
+                                >
                                     Kirim Bukti Transfer
                                 </button>
                             </form>
@@ -211,35 +237,45 @@
                                     Periksa bukti transfer dan pastikan dana benar-benar masuk ke rekening sebelum menyetujui pembayaran.
                                 </p>
 
-                                <form action="{{ route('orders.confirmPayment', $order) }}"
-                                      method="POST"
-                                      onsubmit="return confirm('Pastikan uang sudah benar-benar masuk ke rekening. Konfirmasi pembayaran?')">
+                                <form
+                                    action="{{ route('orders.confirmPayment', $order) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Pastikan uang sudah benar-benar masuk ke rekening. Konfirmasi pembayaran?')"
+                                >
                                     @csrf
 
-                                    <button type="submit"
-                                            class="rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800">
+                                    <button
+                                        type="submit"
+                                        class="rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800"
+                                    >
                                         Konfirmasi Pembayaran
                                     </button>
                                 </form>
 
-                                <form action="{{ route('orders.rejectPayment', $order) }}"
-                                      method="POST"
-                                      class="mt-3">
+                                <form
+                                    action="{{ route('orders.rejectPayment', $order) }}"
+                                    method="POST"
+                                    class="mt-3"
+                                >
                                     @csrf
 
                                     <label class="mb-2 block text-sm font-medium">
                                         Alasan Penolakan
                                     </label>
 
-                                    <textarea name="payment_rejection_reason"
-                                              rows="2"
-                                              required
-                                              maxlength="1000"
-                                              placeholder="Tuliskan alasan penolakan bukti transfer..."
-                                              class="w-full rounded-lg border border-gray-300 p-3 text-sm"></textarea>
+                                    <textarea
+                                        name="payment_rejection_reason"
+                                        rows="2"
+                                        required
+                                        maxlength="1000"
+                                        placeholder="Tuliskan alasan penolakan bukti transfer..."
+                                        class="w-full rounded-lg border border-gray-300 p-3 text-sm"
+                                    ></textarea>
 
-                                    <button type="submit"
-                                            class="mt-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">
+                                    <button
+                                        type="submit"
+                                        class="mt-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+                                    >
                                         Tolak Pembayaran
                                     </button>
                                 </form>
@@ -254,13 +290,17 @@
                         $order->payment_status === 'dibayar'
                     )
                         <div class="mt-4">
-                            <form action="{{ route('orders.ship', $order) }}"
-                                  method="POST"
-                                  onsubmit="return confirm('Tandai pesanan ini sudah dikirim?')">
+                            <form
+                                action="{{ route('orders.ship', $order) }}"
+                                method="POST"
+                                onsubmit="return confirm('Tandai pesanan ini sudah dikirim?')"
+                            >
                                 @csrf
 
-                                <button type="submit"
-                                        class="rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800">
+                                <button
+                                    type="submit"
+                                    class="rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800"
+                                >
                                     Tandai Sudah Dikirim
                                 </button>
                             </form>
@@ -273,13 +313,17 @@
                         $order->status === 'dikirim'
                     )
                         <div class="mt-4">
-                            <form action="{{ route('orders.confirmReceived', $order) }}"
-                                  method="POST"
-                                  onsubmit="return confirm('Apakah barang sudah diterima?')">
+                            <form
+                                action="{{ route('orders.confirmReceived', $order) }}"
+                                method="POST"
+                                onsubmit="return confirm('Apakah barang sudah diterima?')"
+                            >
                                 @csrf
 
-                                <button type="submit"
-                                        class="rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800">
+                                <button
+                                    type="submit"
+                                    class="rounded-lg bg-green-700 px-4 py-2 text-sm font-medium text-white hover:bg-green-800"
+                                >
                                     Konfirmasi Barang Diterima
                                 </button>
                             </form>
@@ -292,7 +336,7 @@
 
                         @forelse ($order->histories as $history)
                             <div class="mb-3 border-l-2 border-gray-300 pl-4">
-                                <p class="font-medium text-sm">
+                                <p class="text-sm font-medium">
                                     {{ $history->activity }}
                                 </p>
 
